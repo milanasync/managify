@@ -1,0 +1,48 @@
+{
+  "login": "Login",
+  "register": "Register",
+  "forgotPass": "Forgot Password ?",
+  "mobile": "Mobile",
+  "password": "Password",
+  "name": "Name",
+  "loading": "Loading ...",
+  "successReg": "Successfully Registered.",
+  "successLogin": "Successfully Login.",
+  "sendLink": "Send Link",
+
+  "dashboard": "Dashboard",
+  "events": "Events",
+  "totalEvents": "Total Events",
+  "upcomingEvents": "Upcoming Events",
+  "peoples": "Peoples",
+  "total": "Total",
+
+  "starts": "Starts at",
+  "ends": "Ends at",
+  "addEvent": "Add Event",
+  "edit": "Edit",
+  "delete": "Delete",
+  "noEvents": "No event added.",
+  "venue": "Venue",
+  "contactPerson": "Contact Person",
+  "eventAdded": "Event added Successfully.",
+  "deleteEvent": "Delete Event",
+  "deleteEventMsg": "Are you sure want to delete ?",
+
+  "members": "Members",
+  "addMember": "Add Member",
+  "noMembers": "No members added.",
+  "memberAdded": "Member added Successfully.",
+  "deleteMember": "Delete Member",
+  "village": "Village",
+  "deleteMemberMsg": "Are you sure want to delete ?",
+
+  "invite": "Invite",
+  "gift": "Gift",
+  "returnGift": "Return Gift",
+
+  "search" : "Search",
+  "filter" : "Filter",
+  "filterDesc": "Serach member using name or by selecting village.",
+  "addGift": "add"
+}
