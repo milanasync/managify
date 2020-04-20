@@ -27,15 +27,32 @@ import strings from '../../localizations';
 class AuthLoginScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      mobile: '',
+      password: '',
+    };
   }
 
   componentDidMount() {}
 
   componentWillUnmount() {}
 
+  validate = _ => {
+    let {mobile, password} = this.state;
+    if (mobile == '') {
+      this.showToast(strings.pleaseEnterMobile);
+      return false;
+    }
+    if (password == '') {
+      this.showToast(strings.pleaseEnterPassword);
+      return false;
+    }
+    return true;
+  };
+
   doLogin = _ => {
-    this.showToast(strings.loading);
+    if (!this.validate()) return false;
+    // this.showToast(strings.loading);
     setTimeout(_ => {
       this.refs.toast.close();
       this.showToast(strings.successLogin);
@@ -49,7 +66,7 @@ class AuthLoginScreen extends Component {
   };
 
   showToast = msg => {
-    this.refs.toast.show(msg);
+    alert(msg);
   };
   doRegister = _ => {
     this.props.navigation.navigate('AuthRegisterScreen');
@@ -72,8 +89,16 @@ class AuthLoginScreen extends Component {
           <StatusBar {...theme.statusBarProps} />
           <Image source={{uri: images.logo}} {...theme.style.centerImage} />
           <Card cardImage={{uri: images.loginCardImage}}>
-            <Input label={strings.mobile} keyboardType="phone-pad" />
-            <Input label={strings.password} secureTextEntry />
+            <Input
+              onChangeText={text => this.setState({mobile: text})}
+              label={strings.mobile}
+              keyboardType="phone-pad"
+            />
+            <Input
+              onChangeText={text => this.setState({password: text})}
+              label={strings.password}
+              secureTextEntry
+            />
             <TouchableOpacity
               onPress={_ =>
                 this.props.navigation.navigate('AuthForgotPasswordScreen')

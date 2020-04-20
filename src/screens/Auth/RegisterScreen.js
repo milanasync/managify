@@ -18,7 +18,11 @@ import strings from '../../localizations';
 class AuthRegisterScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      mobile: '',
+      password: '',
+      name: '',
+    };
   }
 
   componentDidMount() {}
@@ -26,7 +30,7 @@ class AuthRegisterScreen extends Component {
   componentWillUnmount() {}
 
   doRegister = _ => {
-    this.showToast(strings.loading);
+    if (!this.validate()) return false;
     setTimeout(_ => {
       this.refs.toast.close();
       this.showToast(strings.successReg);
@@ -40,10 +44,27 @@ class AuthRegisterScreen extends Component {
   };
 
   showToast = msg => {
-    this.refs.toast.show(msg);
+    alert(msg);
   };
   doLogin = _ => {
     this.props.navigation.navigate('AuthLoginScreen');
+  };
+
+  validate = _ => {
+    let {mobile, password, name} = this.state;
+    if (name == '') {
+      this.showToast(strings.pleaseEnterName);
+      return false;
+    }
+    if (mobile == '') {
+      this.showToast(strings.pleaseEnterMobile);
+      return false;
+    }
+    if (password == '') {
+      this.showToast(strings.pleaseEnterPassword);
+      return false;
+    }
+    return true;
   };
 
   render() {
@@ -59,9 +80,20 @@ class AuthRegisterScreen extends Component {
           <StatusBar {...theme.statusBarProps} />
           <Image source={{uri: images.logo}} {...theme.style.centerImage} />
           <Card cardImage={{uri: images.loginCardImage}}>
-            <Input label={strings.name} />
-            <Input label={strings.mobile} keyboardType="phone-pad"/>
-            <Input label={strings.password} secureTextEntry/>
+            <Input
+              onChangeText={text => this.setState({name: text})}
+              label={strings.name}
+            />
+            <Input
+              onChangeText={text => this.setState({mobile: text})}
+              label={strings.mobile}
+              keyboardType="phone-pad"
+            />
+            <Input
+              onChangeText={text => this.setState({password: text})}
+              label={strings.password}
+              secureTextEntry
+            />
             <Button onPress={_ => this.doRegister()} title={strings.register} />
             <Button
               color={Colors.themeColor3}

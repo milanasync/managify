@@ -40,9 +40,10 @@ class UserEventListScreen extends Component {
       visible: false,
       id: 0,
       name: '',
-      starts: '',
-      ends: '',
+      starts: new Date(),
+      ends: new Date(),
       contactPerson: '',
+      venue: '',
       peoples: 0,
       members: [],
       members_gift: [],
@@ -72,6 +73,32 @@ class UserEventListScreen extends Component {
           id: 0,
         });
 
+  validateForm = _ => {
+    let {name, starts, ends, contactPerson, venue} = this.state;
+    if (name == '') {
+      alert(strings.pleaseEnterName);
+      return false;
+    }
+
+    if (starts == '') {
+      alert(strings.pleaseEnterStarts);
+      return false;
+    }
+    if (ends == '') {
+      alert(strings.pleaseEnterEnds);
+      return false;
+    }
+    if (venue == '') {
+      alert(strings.pleaseEnterVenue);
+      return false;
+    }
+    if (contactPerson == '') {
+      alert(strings.pleaseEnterContactPerson);
+      return false;
+    }
+    return true;
+  };
+
   onSubmit = _ => {
     let {
       name,
@@ -83,7 +110,7 @@ class UserEventListScreen extends Component {
       peoples,
       members,
       members_gift,
-      members_return_gift
+      members_return_gift,
     } = this.state;
     let event = {
       name,
@@ -95,19 +122,20 @@ class UserEventListScreen extends Component {
       id,
       members,
       members_gift,
-      members_return_gift
+      members_return_gift,
     };
+    if (!this.validateForm()) return false;
     if (id == 0) {
       this.props.addEvent(event);
     } else {
       this.props.editEvent(event);
     }
     this.setModalVisble(false);
-    // this.showToast(strings.eventAdded);
+    this.showToast(strings.eventAdded);
   };
 
   showToast = msg => {
-    this.refs.toast.show(msg);
+    alert(msg);
   };
 
   deleteEvent = index => {
@@ -141,6 +169,13 @@ class UserEventListScreen extends Component {
     </FormModal>
   );
 
+  getDateString = date => {
+    if (date instanceof Date) {
+      return `${date.getDate()}/ ${date.getMonth() +1} / ${date.getFullYear()}`;
+    }
+    return '';
+  };
+
   renderEventFormInputs = _ => {
     return (
       <>
@@ -150,13 +185,21 @@ class UserEventListScreen extends Component {
           label={strings.name}
         />
         <Input
+          datepicker
           value={this.state.starts}
-          onChangeText={text => this.setState({starts: text})}
+          onChangeText={text => {
+            let startDate = new Date(text);
+            this.setState({starts: this.getDateString(startDate)});
+          }}
           label={strings.starts}
         />
         <Input
+          datepicker
           value={this.state.ends}
-          onChangeText={text => this.setState({ends: text})}
+          onChangeText={text => {
+            let endDate = new Date(text);
+            this.setState({ends: this.getDateString(endDate)});
+          }}
           label={strings.ends}
         />
         <Input
@@ -226,6 +269,7 @@ class UserEventListScreen extends Component {
 
     return (
       <>
+        <StatusBar {...theme.statusBarProps} />
         {this.renderEventForm()}
         <View style={theme.style.listContainer}>
           <Toast ref="toast" {...theme.style.toast} />

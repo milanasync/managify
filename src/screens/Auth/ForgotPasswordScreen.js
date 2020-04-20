@@ -18,14 +18,24 @@ import strings from '../../localizations';
 class AuthForgotPasswordScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      mobile: '',
+    };
   }
 
   componentDidMount() {}
 
   componentWillUnmount() {}
 
-  doSendLink = _ => {};
+  validate = _ => {
+    if (this.state.mobile == '') {
+      alert(strings.pleaseEnterMobile);
+      return false;
+    }
+  };
+  doSendLink = _ => {
+    if (!this.validate()) return false;
+  };
 
   doLogin = _ => {
     this.props.navigation.navigate('AuthLoginScreen');
@@ -44,7 +54,11 @@ class AuthForgotPasswordScreen extends Component {
           <StatusBar {...theme.statusBarProps} />
           <Image source={{uri: images.logo}} {...theme.style.centerImage} />
           <Card cardImage={{uri: images.loginCardImage}}>
-            <Input label={strings.mobile} keyboardType="phone-pad" />
+            <Input
+              onChangeText={text => this.setState({mobile: text})}
+              label={strings.mobile}
+              keyboardType="phone-pad"
+            />
             <Button onPress={_ => this.doSendLink()} title={strings.sendLink} />
             <Button
               color={Colors.themeColor3}

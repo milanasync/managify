@@ -19,15 +19,15 @@ class UserDashScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refersh: false
+      refersh: false,
     };
   }
 
   componentDidMount() {
     const unsubscribe = this.props.navigation.addListener('focus', () => {
       this.setState({
-        refersh: !this.state.refersh
-      })
+        refersh: !this.state.refersh,
+      });
     });
   }
 
@@ -39,6 +39,7 @@ class UserDashScreen extends Component {
     let membersList = this.props.members.list;
     return (
       <>
+        <StatusBar {...theme.statusBarProps} />
         <ScrollView style={{backgroundColor: Colors.white}}>
           <Card onPress={_ => this.props.navigation.navigate('EventsStack')}>
             <View style={[theme.style.rowCenterBetween, theme.style.wrap]}>
@@ -47,10 +48,6 @@ class UserDashScreen extends Component {
                 <Badge
                   bgColor={Colors.themeColor}
                   title={strings.totalEvents + ': ' + list.length}
-                />
-                <Badge
-                  bgColor={Colors.themeColor2}
-                  title={strings.upcomingEvents + ': 2'}
                 />
               </View>
             </View>

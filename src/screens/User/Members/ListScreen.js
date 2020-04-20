@@ -70,10 +70,29 @@ class UserMembersListScreen extends Component {
           id: 0,
         });
 
+  validate = _ => {
+    let {name, mobile, village, id} = this.state;
+    if(name == '') {
+      alert(strings.pleaseEnterName);
+      return false;
+    }
+
+    if(mobile == '') {
+      alert(strings.pleaseEnterMobile);
+      return false;
+    }
+
+    if(village == '') {
+      alert(strings.pleaseEnterVillage);
+      return false;
+    }
+    return true;
+  };
   onSubmit = _ => {
     let {name, mobile, village, id} = this.state;
     let member = {name, mobile, village, id};
-    console.warn({id});
+
+    if (!this.validate()) return false;
     if (id == 0) {
       this.props.addMember(member);
     } else {
@@ -84,7 +103,7 @@ class UserMembersListScreen extends Component {
   };
 
   showToast = msg => {
-    this.refs.toast.show(msg);
+    alert(msg);
   };
 
   deleteMember = index => {
@@ -152,7 +171,6 @@ class UserMembersListScreen extends Component {
     let memberGift = selectedEvent.members_gift.filter(
       m => m.memberId === member,
     );
-    console.warn({memberGift});
 
     return memberGift.length > 0 ? memberGift[0] : false;
   };
@@ -163,13 +181,13 @@ class UserMembersListScreen extends Component {
       m => m.memberId === member,
     );
 
-    console.warn({memberReturnGift});
     return memberReturnGift.length > 0 ? memberReturnGift[0] : false;
   };
 
   renderCard = ({item, index}) => {
     let {theme} = this.props.app;
     let selectedEvent = this.props.events.selectedEvent;
+    console.warn({selectedEvent})
     return (
       <Card>
         <View style={[theme.style.rowCenterBetween, theme.style.wrap]}>

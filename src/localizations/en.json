@@ -44,5 +44,14 @@
   "search" : "Search",
   "filter" : "Filter",
   "filterDesc": "Serach member using name or by selecting village.",
-  "addGift": "add"
+  "addGift": "add",
+
+  "pleaseEnterName": "Please enter Name.",
+  "pleaseEnterContactPerson": "Please enter Contact person name.",
+  "pleaseEnterVenue": "Please Enter Venue.",
+  "pleaseEnterStarts": "Please enter Start Date.",
+  "pleaseEnterEnds": "Please enter End Date.",
+  "pleaseEnterMobile": "Please enter Mobile.",
+  "pleaseEnterVillage": "Please enter Village.",
+  "pleaseEnterPassword": "Please enter Password."
 }
